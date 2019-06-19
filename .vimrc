@@ -59,3 +59,14 @@ endfunction
 
 " Custom mappings for easy startup
 autocmd VimEnter * call StartWork()
+
+" GVIM specifc config
+au GUIEnter * simalt ~x
+
+
+set guioptions-=m
+set guioptions-=T
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
