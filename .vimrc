@@ -70,3 +70,43 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
+
+
+" python compatibility
+filetype plugin on  
+set omnifunc=syntaxcomplete#Complete 
+
+" indentation-based folding
+set foldmethod=indent
+set foldlevel=99
+
+" map space to za (fold/unfold)
+nnoremap <space> za
+
+" syntax marking for python (may not work)
+let python_highlight_all=1
+
+" set to system clipboard
+set clipboard=unnamed
+
+" cursorline
+set cursorline
+
+" move indent when enter is pressed
+set autoindent
+
+" show matching brackets
+set showmatch
+
+" searching
+set incsearch
+set hlsearch
+
+" key binding to turn off search highlighting
+nnoremap <leader><space> :nohlsearch<CR>
+
+" path for fuzzy find
+set path +=**
+
+" display all matching files
+set wildmenu
