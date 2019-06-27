@@ -1,8 +1,8 @@
 set nocompatible
 syntax on
 set nowrap
-set encoding=UTF-8
-set guifont=consolas\ Nerd\ Font\ 10
+set encoding=utf-8
+set guifont=consolas
 
 " Show linenumbers
 set number
@@ -71,7 +71,6 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
-
 " python compatibility
 filetype plugin on  
 set omnifunc=syntaxcomplete#Complete 
@@ -110,3 +109,6 @@ set path +=**
 
 " display all matching files
 set wildmenu
+
+" execute python file on pressing f5
+map <F5> :w<CR>:exe ":!python " . getreg("%") . "" <CR>
