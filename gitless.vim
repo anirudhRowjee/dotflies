@@ -1,3 +1,10 @@
+"""""""
+" basic .vimrc for machines without git support 
+" best vanilla config
+" maintained by Anirudh Rowjee (github @anirudhRowjee)
+"""""""
+
+
 set nocompatible
 syntax on
 set nowrap
