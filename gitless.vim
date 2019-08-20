@@ -38,6 +38,16 @@ let g:netrw_browse_split = 2
 let g:netrw_winsize = 10
 let g:netrw_altv = 2
 
+" netrw - create file and open in new split
+function! Cbdo()
+   call inputsave()
+   let name=input('enter filename >>')
+   call inputrestore()
+   vs
+   wincmd w
+   execute 'e' name
+endfunction
+
 " Theme and Styling 
 
 if (has("termguicolors"))
@@ -119,3 +129,6 @@ set wildmenu
 
 " execute python file on pressing f5
 map <F5> :w<CR>:exe ":!python " . getreg("%") . "" <CR>
+
+" map ctrl-n to create new file and open in edit
+map <C-n> :call Cbdo() <CR> 
