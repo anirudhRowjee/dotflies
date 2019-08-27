@@ -65,7 +65,7 @@ if get(g:, 'elite_mode')
 endif
 
 
-function StartWork()
+function! StartWork()
     below term
     wincmd w    
     resize +8
@@ -74,8 +74,6 @@ function StartWork()
     vertical resize -50
 endfunction
 
-" Custom mappings for easy startup
-autocmd VimEnter * call StartWork()
 
 " GVIM specifc config
 au GUIEnter * simalt ~x
@@ -132,3 +130,13 @@ map <F5> :w<CR>:exe ":!python " . getreg("%") . "" <CR>
 
 " map ctrl-n to create new file and open in edit
 map <C-n> :call Cbdo() <CR> 
+
+" map ctrl-r to open terminal and file explorer
+map <C-r> :call StartWork() <CR>
+
+" set working directory to wherever the open file lives
+set autochdir
+
+" `gf` opens file under cursor in a new vertical split
+nnoremap gf :vertical wincmd f<CR>
+
