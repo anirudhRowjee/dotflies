@@ -74,6 +74,7 @@ if get(g:, 'elite_mode')
 endif
 
 
+" Turn Vim into an IDE
 function! StartWork()
     below term
     wincmd w    
@@ -111,8 +112,8 @@ let python_highlight_all=1
 " set to system clipboard
 set clipboard=unnamed
 
-" cursorline
-set cursorline
+" toggle left file explorer
+map <C-t> :Lex <CR>
 
 " move indent when enter is pressed
 set autoindent
@@ -181,4 +182,5 @@ hi DiffChange guibg=darkgreen
 hi DiffText guibg=olivedrab
 hi DiffAdd guibg=slateblue
 hi DiffDelete guibg=coral 
+
 
