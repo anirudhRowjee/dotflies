@@ -76,8 +76,12 @@ endif
 
 " Turn Vim into an IDE
 function! StartWork()
-    below term
-    wincmd w    
+    split
+    wincmd w
+    call Term()
+    wincmd w
+    q
+    wincmd w
     resize +8
     vs
     Explore
