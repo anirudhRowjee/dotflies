@@ -134,6 +134,7 @@ nnoremap <leader><space> :nohlsearch<CR>
 
 " path for fuzzy find
 set path +=**
+set path +=$PWD/
 
 " display all matching files
 set wildmenu
@@ -153,38 +154,120 @@ map <C-r> :call StartWork() <CR>
 " `gf` opens file under cursor in a new vertical split
 nnoremap gf :vertical wincmd f<CR>
 
-hi clear
+" omnicompletion settings
+autocmd CompleteDone * pclose
+
+" ------------------------------------------------------------------------------
+"                                  by wdhg
+" ------------------------------------------------------------------------------
+
 set background=dark
+hi clear
+
 if exists("syntax_on")
-syntax reset
+  "syntax clear
+  "syntax on
+  syntax reset
 endif
-let g:colors_name = "sv"
 
-highlight Comment ctermfg=green guifg=green
-hi NonText guifg=brown
 
-highlight Constant ctermfg=14 cterm=none guifg=#0077ff gui=none
-highlight cString guifg=white gui=bold ctermfg=white cterm=bold
-highlight cCppString guifg=white gui=bold ctermfg=white cterm=bold
-highlight cBracket guibg=red gui=bold ctermbg=red cterm=bold
+" ------------------------------------------------------------------------------
+"                                    code
+" ------------------------------------------------------------------------------
 
-highlight Identifier guifg=#00c0c0 ctermfg=cyan
-highlight Statement ctermfg=3 cterm=bold guifg=#c0c000 gui=bold
-highlight PreProc ctermfg=lightblue guifg=#0088ff
-highlight Type ctermfg=2 guifg=orange
-highlight Special ctermfg=12 guifg=#bb00bb gui=bold
-highlight Error ctermbg=9 guibg=#ff0000
-highlight Todo ctermfg=4 ctermbg=3 guifg=#000080 guibg=#c0c000
-highlight Directory ctermfg=2 guifg=#00c000
-highlight StatusLine ctermfg=11 ctermbg=12 cterm=none guifg=#ffff00 guibg=#0000ff gui=none
-highlight Normal guifg=#cccc66 guibg=#000000 ctermfg=darkyellow
-highlight Search ctermbg=3 guibg=#c0c000
-hi operator guifg=pink
-hi statement guifg=red ctermfg=red
+hi Comment         guifg=#eeee44
 
-hi DiffChange guibg=darkgreen
-hi DiffText guibg=olivedrab
-hi DiffAdd guibg=slateblue
-hi DiffDelete guibg=coral 
+hi Constant        guifg=#f07040
+hi String          guifg=#90fe40
+hi Character       guifg=#00dd55
+hi Number          guifg=#11ccff
+"Boolean
+hi Float           guifg=#11ccff
 
+hi Identifier      guifg=#29d8f7
+hi Function        guifg=#fe88fe
+
+hi Statement       guifg=#ff4477
+"Conditional
+"Repeat
+"Label
+"Operator
+"Keyword
+"Exception
+
+hi PreProc         guifg=#ee9933
+"Include
+"Define
+"Macro
+"PreCondit
+
+hi Type            guifg=#33ddc8
+"StorageClass
+"Structure
+"Typedef
+
+hi Special         guifg=#ffb030
+"SpecialChar
+"Tag
+"Delimiter
+"SpecialComment
+"Debug
+
+"Underlined
+
+"Ignore
+
+hi Error           guifg=#ffffff       guibg=#ff0000
+
+hi Todo            guifg=#000000       guibg=#eeee44
+
+" ------------------------------------------------------------------------------
+"                                   editor
+" ------------------------------------------------------------------------------
+
+hi ColorColumn                         guibg=#222222
+"Conceal
+hi Cursor                              guibg=#ff00ff
+"CursorIM
+"CursorColumn
+hi CursorLine                          guibg=#303030
+"Directory
+"DiffAdd
+"DiffChange
+"DiffDelete
+"DiffText
+"ErrorMsg
+"VertSplit
+"Folded
+"FoldColumn
+"SignColumn
+"IncSearch
+hi LineNr          guifg=#aaaa66
+hi MatchParen      guifg=#000000       guibg=#ffff00
+"ModeMsg
+"MoreMsg
+"NonText
+hi Normal          guifg=#ffffff       guibg=#000000
+"Pmenu
+"PmenuSel
+"PmenuSbar
+"PmenuThumb
+"Question
+"Search
+"SpecialKey
+"SpellBad
+"SpellCap
+"SpellLocal
+"SpellRare
+"StatusLine
+"StatusLineNC
+"TabLine
+"TabLineFill
+"TabLineSel
+"Title
+"Visual
+"VisualNOS
+"WarningMsg
+hi Whitespace      guifg=#555555
+"WildMenu
 
