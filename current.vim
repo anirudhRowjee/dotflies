@@ -8,7 +8,8 @@
 call plug#begin('~/.vim/plugged')
 
 " GUI and UI plugins
-Plug 'itchyny/lightline.vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'raimondi/delimitmate'
 Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
@@ -29,6 +30,7 @@ Plug 'fielding/vice'
 Plug 'plainfingers/black_is_the_color'
 Plug 'wdhg/dragon-energy'
 Plug 'alexkh/vimcolors' "SV
+Plug 'morhetz/gruvbox'
 call plug#end()
 "-------------------------------------------"
 
@@ -37,7 +39,7 @@ set nocompatible
 syntax on
 set nowrap
 set encoding=utf-8
-set guifont=Ubuntu\ 14
+set guifont=consolas
 
 " Show linenumbers
 set number
@@ -50,6 +52,9 @@ set shiftwidth=4
 set smarttab
 set expandtab
 
+" wrap at 80 characters
+set textwidth=80
+
 " Always display the status line
 set laststatus=2
 
@@ -59,19 +64,18 @@ let g:elite_mode=1
 " Enable highlighting of the current line
 set cursorline
 
-" lightline config
+" airline config
+let g:airline_powerline_fonts = 1
+let g:airline_theme='dark'
 
-let g:lightline = {
-            \'colorscheme': 'powerline',
-            \}
 colo vice
-
 " NetRW configuration
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
 let g:netrw_browse_split = 2
 let g:netrw_winsize = 10
 let g:netrw_altv = 2
+
 
 " netrw - create file and open in new split
 function! Cbdo()
@@ -147,7 +151,7 @@ nnoremap <space> za
 let python_highlight_all=1
 
 " set to system clipboard
-set clipboard=unnamed
+set clipboard=unnamedplus
 
 " toggle left file explorer
 map <C-t> :Lex <CR>
@@ -161,9 +165,6 @@ set showmatch
 " searching
 set incsearch
 set hlsearch
-
-" remove vertical fill characters in splits
-set fillchars+=vert:\            
 
 " key binding to turn off search highlighting
 nnoremap <leader><space> :nohlsearch<CR>
@@ -193,20 +194,18 @@ nnoremap gf :vertical wincmd f<CR>
 " omnicompletion settings
 autocmd CompleteDone * pclose
 
-" number line and fold line background conf
-hi LineNr guibg=bg
-hi foldcolumn guibg=bg
-hi VertSplit guibg=bg guifg=bg
-
 " python specific buffer settings?
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
 autocmd BufRead *.py set nocindent
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
-filetype plugin indent on
 
 " Plugin Config - ALE
 let g:ale_linters = {'python': ['flake8']}
 
-
 " Plugin Config - FZF
 nnoremap <c-p> :FZF <CR>
+
+" backspace config
+set backspace=indent,eol,start
+
+
