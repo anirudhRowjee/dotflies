@@ -15,6 +15,8 @@ Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'junegunn/fzf',{ 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'dense-analysis/ale'
+Plug 'jceb/vim-orgmode'
+Plug 'tpope/vim-speeddating'
 " Autocomplete
 Plug 'davidhalter/jedi-vim'
 Plug 'sheerun/vim-polyglot'
@@ -25,12 +27,11 @@ Plug 'mattn/emmet-vim'
 " file handling
 Plug 'tpope/vim-vinegar'
 " colors
-Plug 'xdg/vim-darkluma'
 Plug 'fielding/vice'
-Plug 'plainfingers/black_is_the_color'
-Plug 'wdhg/dragon-energy'
-Plug 'alexkh/vimcolors' "SV
-Plug 'morhetz/gruvbox'
+Plug 'sakibmoon/vim-colors-notepad-plus-plus' 
+Plug 'megantiu/true.vim'
+" LaTeX setup
+Plug 'vim-latex/vim-latex'
 call plug#end()
 "-------------------------------------------"
 
@@ -39,7 +40,6 @@ set nocompatible
 syntax on
 set nowrap
 set encoding=utf-8
-set guifont=consolas
 
 " Show linenumbers
 set number
@@ -56,7 +56,7 @@ set expandtab
 set textwidth=80
 
 " Always display the status line
-set laststatus=2
+set laststatus=1
 
 " Enable Elite mode, No ARRRROWWS!!!!
 let g:elite_mode=1
@@ -66,7 +66,7 @@ set cursorline
 
 " airline config
 let g:airline_powerline_fonts = 1
-let g:airline_theme='dark'
+let g:airline_theme='simple'
 
 colo vice
 " NetRW configuration
@@ -208,4 +208,13 @@ nnoremap <c-p> :FZF <CR>
 " backspace config
 set backspace=indent,eol,start
 
+" vim latex settings
+autocmd BufWritePost *.tex normal \ll
+autocmd BufEnter *.tex normal \lv
+autocmd BufEnter *.tex set textwidth=50
 
+" vim-latex config
+let g:Tex_ViewRule_pdf = 'zathura'
+let g:tex_flavor='latex'
+let g:Tex_DefaultTargetFormat='pdf'
+let g:Tex_CompileRule_pdf='pdflatex $*'
