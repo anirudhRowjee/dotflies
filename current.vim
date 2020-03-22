@@ -30,6 +30,12 @@ Plug 'tpope/vim-vinegar'
 Plug 'fielding/vice'
 Plug 'sakibmoon/vim-colors-notepad-plus-plus' 
 Plug 'megantiu/true.vim'
+Plug 'tjammer/focusedpanic.vim'
+Plug 'jdsimcoe/hyper.vim'
+Plug 'arzg/vim-colors-xcode'
+Plug 'lewis6991/moonlight.vim'
+Plug 'bluz71/vim-nightfly-guicolors'
+Plug 'atahabaki/archman-vim'
 " LaTeX setup
 Plug 'vim-latex/vim-latex'
 call plug#end()
@@ -68,7 +74,7 @@ set cursorline
 let g:airline_powerline_fonts = 1
 let g:airline_theme='simple'
 
-colo vice
+colo archman
 " NetRW configuration
 let g:netrw_liststyle = 3
 let g:netrw_banner = 0
@@ -210,11 +216,15 @@ set backspace=indent,eol,start
 
 " vim latex settings
 autocmd BufWritePost *.tex normal \ll
-autocmd BufEnter *.tex normal \lv
-autocmd BufEnter *.tex set textwidth=50
+autocmd BufEnter *.tex normal \lv\ll
+autocmd BufEnter *.tex set textwidth=80
 
 " vim-latex config
 let g:Tex_ViewRule_pdf = 'zathura'
 let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_CompileRule_pdf='pdflatex $*'
+
+
+" transparent background for vim
+hi Normal guibg=NONE ctermbg=NONE
