@@ -11,10 +11,11 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod1
+set $sc_term --no-startup-id st -n dropdown
 
 # Font for window titles. Will also be used by the bar unless a different font
 # is used in the bar {} block below.
-font pango:DejaVu Sans Mono for Powerline 8
+font pango:DejaVu Sans Mono for Powerline 7
 
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
@@ -31,13 +32,13 @@ font pango:DejaVu Sans Mono for Powerline 8
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec gnome-terminal
+bindsym $mod+Return exec gnome-terminal 
 
 # kill focused window
 bindsym $mod+Shift+q kill
 
 # start dmenu (a program launcher)
-bindsym $mod+d exec rofi -show combi
+bindsym $mod+d exec "rofi -combi-modi window,drun,ssh -show combi -modi combi,drun,ssh"
 # There also is the (new) i3-dmenu-desktop which only displays applications
 # shipping a .desktop file. It is a wrapper around dmenu, so you need that
 # installed.
@@ -56,10 +57,10 @@ bindsym $mod+Up focus up
 bindsym $mod+Right focus right
 
 # move focused window
-bindsym $mod+Shift+j move left
-bindsym $mod+Shift+k move down
-bindsym $mod+Shift+l move up
-bindsym $mod+Shift+semicolon move right
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
 
 # alternatively, you can use the cursor keys:
 bindsym $mod+Shift+Left move left
@@ -150,30 +151,79 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
+## Floating "Scratchpad" terminal
+exec --no-startup-id $sc_term
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] border pixel 3
+
+bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move position center
+
+#exec --no-startup-id $term
+#for_window [class="Terminal" title="^((?!Terminator Preferences).)*$"] move scratchpad, move position 0 0, resize set 1366 768;
+#bindsym $mod+y [class="Terminal"] scratchpad show;
+
+
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
     status_command i3status
+    colors {
+           background #000000
+           statusline #eeeeee
+           separator #666666
+           #                  border  backgr. text
+           focused_workspace  #4c7899 #000000 #ffffff
+           active_workspace   #333333 #000000 #ffffff
+           inactive_workspace #333333 #000000 #888888
+           urgent_workspace   #2f343a #000000 #ffffff
+    }
     position top
-    font pango:DejaVu Sans Mono for Powerline 8
+    font pango:DejaVu Sans Mono for Powerline 6
+    tray_output primary
 }
 
-
 # set wallpaper
-exec --no-startup-id feh --bg-scale ~/Pictures/ultraviolet-3840×2160.jpg
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers-repo/k5w7ftqq7y531.jpg
+exec --no-startup-id compton
+
 # disable borders
-for_window [class=".*"] border pixel 1 
+for_window [class=".*"] border pixel 0 
+for_window [class="floating"] border pixel 3 
 
 ## GAPS setup
 gaps inner 5
 gaps outer 5
 
-smart_gaps on
 smart_gaps inverse_outer
 smart_borders on
-
 exec wicd-gtk -t
 
 bindsym XF86AudioMute exec amixer -qD pulse set Master 1+ toggle
+bindsym XF86AudioRaiseVolume exec "amixer -q sset Master,0 1+ unmute"
+bindsym XF86AudioLowerVolume exec "amixer -q sset Master,0 1- unmute"
+bindsym XF86AudioPlay exec playerctl play-pause  
+bindsym XF86AudioNext exec playerctl next  
+bindsym XF86AudioPrev exec playerctl previous  
 
-bindsym mod4+l exec i3lock -f -e -i ~/lock.png
+set $Locker exec i3lock -f -e -i ~/Pictures/k5w7ftqq7y531.jpg
+
+for_window [class="GtkFileChooserDialog"] floating enable
+for_window [class="GtkFileChooserDialog"] [floating] resize set x y
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (h) hibernate, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l exec --no-startup-id $Locker, mode "default"
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s exec --no-startup-id $Locker && systemctl suspend, mode "default"
+    bindsym h exec --no-startup-id $Locker && systemctl hibernate, mode "default"
+    bindsym r exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff -i, mode "default"  
+
+    # back to normal: Enter or Escape
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+}
+
+bindsym mod4+l mode "$mode_system"
+bindsym $mod+shift+f exec firefox
