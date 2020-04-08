@@ -14,27 +14,26 @@ Plug 'raimondi/delimitmate'
 Plug 'junegunn/goyo.vim'
 Plug 'machakann/vim-highlightedyank'
 Plug 'junegunn/fzf',{ 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 Plug 'dense-analysis/ale'
-Plug 'jceb/vim-orgmode'
 Plug 'tpope/vim-speeddating'
+Plug 'airblade/vim-gitgutter'
 " Autocomplete
 Plug 'davidhalter/jedi-vim'
 Plug 'sheerun/vim-polyglot'
+Plug 'valloric/YouCompleteMe'
 " framework support
 Plug 'jmcomets/vim-pony'
 Plug 'tweekmonster/django-plus.vim'
 Plug 'mattn/emmet-vim'
+Plug 'leafOfTree/vim-vue-plugin'
+Plug 'Quramy/tsuquyomi'
 " file handling
 Plug 'tpope/vim-vinegar'
 " colors
 Plug 'fielding/vice'
-Plug 'sakibmoon/vim-colors-notepad-plus-plus' 
-Plug 'megantiu/true.vim'
 Plug 'tjammer/focusedpanic.vim'
 Plug 'jdsimcoe/hyper.vim'
-Plug 'arzg/vim-colors-xcode'
-Plug 'lewis6991/moonlight.vim'
-Plug 'bluz71/vim-nightfly-guicolors'
 Plug 'atahabaki/archman-vim'
 " LaTeX setup
 Plug 'vim-latex/vim-latex'
@@ -53,16 +52,14 @@ set relativenumber
 set ruler
 
 " Set Proper Tabs
-set tabstop=4
-set shiftwidth=4
+set tabstop=4 shiftwidth=4
 set smarttab
-set expandtab
 
 " wrap at 80 characters
-set textwidth=80
+set textwidth=150
 
 " Always display the status line
-set laststatus=1
+set laststatus=2
 
 " Enable Elite mode, No ARRRROWWS!!!!
 let g:elite_mode=1
@@ -145,6 +142,7 @@ au GUIEnter * simalt ~x
 " python compatibility
 filetype plugin on  
 set omnifunc=syntaxcomplete#Complete 
+autocmd BufEnter *.py set textwidth=80
 
 " indentation-based folding
 set foldmethod=indent
@@ -205,11 +203,23 @@ autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,
 autocmd BufRead *.py set nocindent
 autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 
+" web development stuff
+autocmd BufEnter,BufRead *.js,*.vue,*.ts,*.html,*.css set tabstop=2 shiftwidth=2 foldmethod=syntax
+autocmd BufNewFile,BufRead *.vue set filetype=vue
+
 " Plugin Config - ALE
-let g:ale_linters = {'python': ['flake8']}
+let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'],}
+let g:ale_python_executable='/usr/bin/python3'
+let g:ale_sign_error='❌'
+let g:ale_sign_warning='⚠️'
+let g:ale_set_highlights=0
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+let g:airline#extensions#ale#enabled = 1
 
 " Plugin Config - FZF
-nnoremap <c-p> :FZF <CR>
+nnoremap <c-p> :Files <CR>
+nnoremap <c-b> :BTags <CR>
 
 " backspace config
 set backspace=indent,eol,start
@@ -225,6 +235,9 @@ let g:tex_flavor='latex'
 let g:Tex_DefaultTargetFormat='pdf'
 let g:Tex_CompileRule_pdf='pdflatex $*'
 
-
 " transparent background for vim
 hi Normal guibg=NONE ctermbg=NONE
+
+" FZF config
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'highlight':'Type', 'border': 'rounded' } }
+let g:fzf_preview_window='right:50%:wrap'
