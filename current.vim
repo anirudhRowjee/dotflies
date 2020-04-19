@@ -16,18 +16,14 @@ Plug 'machakann/vim-highlightedyank'
 Plug 'junegunn/fzf',{ 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dense-analysis/ale'
-Plug 'tpope/vim-speeddating'
 Plug 'airblade/vim-gitgutter'
-" Autocomplete
-Plug 'davidhalter/jedi-vim'
+Plug 'tpope/vim-fugitive'
+" Autocomplete and syntax highlighting
 Plug 'sheerun/vim-polyglot'
-Plug 'valloric/YouCompleteMe'
+"Plug 'valloric/YouCompleteMe'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " framework support
-Plug 'jmcomets/vim-pony'
-Plug 'tweekmonster/django-plus.vim'
 Plug 'mattn/emmet-vim'
-Plug 'leafOfTree/vim-vue-plugin'
-Plug 'Quramy/tsuquyomi'
 " file handling
 Plug 'tpope/vim-vinegar'
 " colors
@@ -65,11 +61,12 @@ set laststatus=2
 let g:elite_mode=1
 
 " Enable highlighting of the current line
-set cursorline
+set cursorline!
 
 " airline config
 let g:airline_powerline_fonts = 1
-let g:airline_theme='simple'
+let g:airline_theme='powerlineish'
+let g:airline_theme_background='dark'
 
 colo archman
 " NetRW configuration
@@ -197,6 +194,7 @@ nnoremap gf :vertical wincmd f<CR>
 
 " omnicompletion settings
 autocmd CompleteDone * pclose
+" let g:ycm_python_binary_path = 'python'
 
 " python specific buffer settings?
 autocmd BufRead *.py set smartindent cinwords=if,elif,else,for,while,try,except,finally,def,class
@@ -206,6 +204,7 @@ autocmd BufWritePre *.py normal m`:%s/\s\+$//e ``
 " web development stuff
 autocmd BufEnter,BufRead *.js,*.vue,*.ts,*.html,*.css set tabstop=2 shiftwidth=2 foldmethod=syntax
 autocmd BufNewFile,BufRead *.vue set filetype=vue
+autocmd BufNewFile,BufRead,BufEnter *.md set textwidth=100
 
 " Plugin Config - ALE
 let g:ale_linters = {'python': ['flake8'], 'javascript': ['eslint'],}
@@ -239,5 +238,43 @@ let g:Tex_CompileRule_pdf='pdflatex $*'
 hi Normal guibg=NONE ctermbg=NONE
 
 " FZF config
-let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.9, 'highlight':'Type', 'border': 'rounded' } }
-let g:fzf_preview_window='right:50%:wrap'
+let g:fzf_layout = { 'window': { 'width': 0.5, 'height': 0.3}, }
+let g:fzf_buffers_jump = 1
+let g:fzf_preview_window = ''
+
+" coc.nvim completion config
+set hidden
+set updatetime=300
+set updatetime=300
+set signcolumn=yes
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+
+let g:airline#extensions#hunks#enabled=0
