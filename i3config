@@ -184,8 +184,9 @@ bindsym $mod+u [instance="dropdown"] scratchpad show; [instance="dropdown"] move
 #}
 
 # set wallpaper
-exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers-repo/undiscovered-universe-by-elias-stern-1920×1080.jpg
-exec_always --no-startup-id compton
+exec_always --no-startup-id feh --bg-scale ~/Pictures/wallpapers-repo/ivan-torres-zWRgJjM5GhE-unsplash.jpg
+exec_always --no-startup-id compton --blur-background --blur-method kawase --blur-strength 10 --opacity-rule 90:'class_g="*"' --backend glx
+
 exec_always --no-startup-id xbacklight -s $brightness
 exec --no-startup-id polybar top
 
@@ -194,10 +195,10 @@ for_window [class=".*"] border pixel 0
 for_window [class="floating"] border pixel 3 
 
 ## GAPS setup
-gaps inner 5
-gaps outer 5
+gaps inner 10
+gaps outer -1
 
-smart_borders on
+# smart_borders on
 exec wicd-gtk -t
 
 bindsym XF86AudioMute exec amixer -qD pulse set Master 1+ toggle
@@ -228,6 +229,7 @@ mode "$mode_system" {
 
 bindsym mod4+l mode "$mode_system"
 bindsym $mod+shift+f exec firefox
+bindsym $mod+shift+s exec gnome-control-center
 
 
 # brightness controls
